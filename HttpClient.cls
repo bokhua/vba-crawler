@@ -50,12 +50,12 @@ Public Function MatchString(ByVal str As String, ByVal leftBound As String, ByVa
     regex.Global = True
     regex.IgnoreCase = True
     
-    mustEscapeCharacters = Split("\ . $ ^ { [ ( | ) * + ?", " ")
+    mustEscapedCharacters = Split("\ . $ ^ { [ ( | ) * + ?", " ")
     
     leftBoundX = leftBound
     rightBoundX = rightBound
     
-    For Each char In mustEscapeCharacters
+    For Each char In mustEscapedCharacters
         leftBoundX = Replace(leftBoundX, char, "\" + char)
         rightBoundX = Replace(rightBoundX, char, "\" + char)
     Next
