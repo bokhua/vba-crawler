@@ -1,28 +1,28 @@
-Public Function HttpGet(url As String, Optional params As String) As HTMLDocument
+Public Function HttpGet(ByVal url As String, Optional ByVal params As String) As HTMLDocument
     Set HttpGet = ConvertToHTMLDoc(HttpGet2(url, params))
 End Function
 
-Public Function HttpPost(url As String, params As String) As HTMLDocument
+Public Function HttpPost(ByVal url As String, ByVal params As String) As HTMLDocument
     Set HttpPost = ConvertToHTMLDoc(HttpPost2(url, params))
 End Function
 
-Public Function HttpGet2(url As String, Optional params As String) As String
+Public Function HttpGet2(ByVal url As String, Optional ByVal params As String) As String
     Dim winHttpReq As New WinHttpRequest
     If Len(params) > 0 Then
         url = url + "?" + params
     End If
     winHttpReq.Open "GET", url, False
-    winHttpReq.Send
+    winHttpReq.send
     response = winHttpReq.responseText
     Set winHttpReq = Nothing
     HttpGet2 = response
 End Function
 
-Public Function HttpPost2(url As String, params As String) As String
+Public Function HttpPost2(ByVal url As String, ByVal params As String) As String
     Dim winHttpReq As New WinHttpRequest
     winHttpReq.Open "POST", url, False
-    winHttpReq.SetRequestHeader "Content-Type", "application/x-www-form-urlencoded"
-    winHttpReq.Send params
+    winHttpReq.setRequestHeader "Content-Type", "application/x-www-form-urlencoded"
+    winHttpReq.send params
     response = winHttpReq.responseText
     Set winHttpReq = Nothing
     HttpPost2 = response
