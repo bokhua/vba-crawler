@@ -67,12 +67,9 @@ Public Function MatchString(ByVal str As String, ByVal leftBound As String, ByVa
         Dim result As New Collection
         For Each mat In regexMatch
             If includeBoundaries = True Then
-                result.Add (mat)
+                result.Add mat
             Else
-                len1 = Len(leftBound)
-                len2 = Len(rightBound)
-                len3 = Len(mat)
-                result.Add (Mid(mat, len1 + 1, len3 - len1 - len2))
+                result.Add StrRemoveBoundaries(mat, leftBound, rightBound)
             End If
         Next
         Set MatchString = result
@@ -83,5 +80,12 @@ Public Function DecodeHTML(ByVal html As String) As String
     Dim xml As Object
     Set xml = CreateObject("MSXML2.DOMDocument")
     xml.loadXML "<root>" & html & "</root>"
-    DecodeHTML = xml.xml
+    DecodeHTML = StrRemoveBoundaries(Trim(Application.Clean(xml.xml)), "<root>", "</root>")
+End Function
+
+Public Function StrRemoveBoundaries(ByVal str As String, ByVal leftBound As String, ByVal rightBound As String) As String
+    len1 = Len(leftBound)
+    len2 = Len(rightBound)
+    len3 = Len(str)
+    StrRemoveBoundaries = Mid(str, len1 + 1, len3 - len1 - len2)
 End Function
