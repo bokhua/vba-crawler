@@ -1,4 +1,4 @@
-' To use HttpGet2, HttpPost2 and ConvertToHTMLDoc, you need add Microsoft HTML Object Library at Tools > References
+' To use ConvertToHTMLDoc, you need add Microsoft HTML Object Library at Tools > References
 ' To use ConvertToXMLDOM, you need add Microsoft XML at Tools > References
 Public Function HttpGet(ByVal url As String, Optional ByVal params As String) As String
     Dim winHttpReq As Object
@@ -22,14 +22,6 @@ Public Function HttpPost(ByVal url As String, ByVal params As String) As String
     response = winHttpReq.responseText
     Set winHttpReq = Nothing
     HttpPost = response
-End Function
-                
-Public Function HttpGet2(ByVal url As String, Optional ByVal params As String) As HTMLDocument
-    Set HttpGet2 = ConvertToHTMLDoc(HttpGet(url, params))
-End Function
-
-Public Function HttpPost2(ByVal url As String, ByVal params As String) As HTMLDocument
-    Set HttpPost2 = ConvertToHTMLDoc(HttpPost(url, params))
 End Function
 
 Public Function ConvertToHTMLDoc(ByVal html As String) As HTMLDocument
