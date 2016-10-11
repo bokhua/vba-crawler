@@ -78,3 +78,10 @@ Public Function MatchString(ByVal str As String, ByVal leftBound As String, ByVa
         Set MatchString = result
     End If
 End Function
+
+Public Function DecodeHTML(ByVal html As String) As String
+    Dim xml As Object
+    Set xml = CreateObject("MSXML2.DOMDocument")
+    xml.loadXML "<root>" & html & "</root>"
+    DecodeHTML = xml.xml
+End Function
