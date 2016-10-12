@@ -1,4 +1,4 @@
-' To use ConvertToHTMLDoc, you need add Microsoft HTML Object Library at Tools > References
+' To use HttpGet2, HttpPost2 and ConvertToHTMLDoc, you need add Microsoft HTML Object Library at Tools > References
 ' To use ConvertToXMLDOM, you need add Microsoft XML at Tools > References
 Public Function HttpGet(ByVal url As String, Optional ByVal params As String) As String
     Dim winHttpReq As Object
@@ -22,6 +22,25 @@ Public Function HttpPost(ByVal url As String, ByVal params As String) As String
     response = winHttpReq.responseText
     Set winHttpReq = Nothing
     HttpPost = response
+End Function
+
+Public Function HttpPost3(ByVal url As String, ByVal params As String) As String
+    Dim winHttpReq As Object
+    Set winHttpReq = CreateObject("WinHttp.WinHttpRequest.5.1")
+    winHttpReq.Open "POST", url, False
+    winHttpReq.setRequestHeader "Content-Type", "application/json; charset=utf-8"
+    winHttpReq.send params
+    response = winHttpReq.responseText
+    Set winHttpReq = Nothing
+    HttpPost3 = response
+End Function
+                
+Public Function HttpGet2(ByVal url As String, Optional ByVal params As String) As HTMLDocument
+    Set HttpGet2 = ConvertToHTMLDoc(HttpGet(url, params))
+End Function
+
+Public Function HttpPost2(ByVal url As String, ByVal params As String) As HTMLDocument
+    Set HttpPost2 = ConvertToHTMLDoc(HttpPost(url, params))
 End Function
 
 Public Function ConvertToHTMLDoc(ByVal html As String) As HTMLDocument
@@ -69,10 +88,15 @@ Public Function MatchString(ByVal str As String, ByVal leftBound As String, ByVa
 End Function
 
 Public Function DecodeHTML(ByVal html As String) As String
-    Dim xml As Object
-    Set xml = CreateObject("MSXML2.DOMDocument")
-    xml.loadXML "<root>" & html & "</root>"
-    DecodeHTML = StrRemoveBoundaries(Trim(Application.Clean(xml.xml)), "<root>", "</root>")
+
+    html = Replace(html, "&amp;", "&")
+    html = Replace(html, "&nbsp;", " ")
+    html = Replace(html, "&quot;", Chr(34))
+    html = Replace(html, "&apos;", "'")
+    html = Replace(html, "&lt;", "<")
+    html = Replace(html, "&gt;", ">")
+    
+    DecodeHTML = html
 End Function
 
 Public Function StrRemoveBoundaries(ByVal str As String, ByVal leftBound As String, ByVal rightBound As String) As String
