@@ -1,9 +1,6 @@
 # vba-crawler
 
 ### HttpClient module
-
-####Add reference in Excel developer visual basics (Tools -> References)
-`Microsoft HTML Object Library` `Microsoft XML`
 ___
 ### How to use?
 
