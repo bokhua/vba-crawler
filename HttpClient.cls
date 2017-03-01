@@ -13,6 +13,7 @@ Public Function HttpGet(ByVal url As String, Optional ByVal params As String) As
     HttpGet = response
 End Function
 
+' params: "var1=a&var2=b"
 Public Function HttpPost(ByVal url As String, ByVal params As String) As String
     Dim winHttpReq As Object
     Set winHttpReq = CreateObject("WinHttp.WinHttpRequest.5.1")
